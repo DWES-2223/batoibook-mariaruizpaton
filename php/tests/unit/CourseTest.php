@@ -49,9 +49,9 @@ class CourseTest extends \Codeception\Test\Unit
     public function testToString()
     {
         $course = new Course('Cycle1', 1, 'Vliteral1', 'Cliteral1');
-        $expectedString = "<div clas='course'>
+        $expectedString = "<div class='course'>
                     <h3>Cycle: Cycle1</h3>
-                    <h5>ID Family: 1<h5>
+                    <h5>ID Family: 1</h5>
                     <h6>Vliteral: Vliteral1</h6>
                     <h6>Cliteral: Cliteral1</h6>
                 </div>";
