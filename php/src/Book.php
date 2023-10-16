@@ -186,7 +186,6 @@ class Book
         foreach ($this as $clave => $valor) {
             if ($valor == ''){
                 $valor = null;
-                $mapa[$clave] = $valor;
             }
             $mapa[$clave] = $valor;
         }

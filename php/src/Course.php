@@ -1,5 +1,7 @@
 <?php
-class Course {
+
+class Course
+{
     private $cycle;
     private $idFamily;
     private $vliteral;
@@ -83,7 +85,8 @@ class Course {
         $this->cliteral = $cliteral;
     }
 
-    public function toJSON(): string {
+    public function toJSON(): string
+    {
         $mapa = [];
         foreach ($this as $clave => $valor) {
             $mapa[$clave] = $valor;
@@ -91,16 +94,27 @@ class Course {
         return json_encode($mapa);
     }
 
-    public function loadCoursesFromFile(){
-        $file = "coursesbook.csv";
-        $fp = fopen($file, "r");
-
-        $contents = fread($fp, filesize($file));
-
-        fclose();
+    public static function loadCoursesFromFile($filename)
+    {
+        $courses = [];
+        if ($fp = fopen($filename, "r")) {
+            while (($data = fgetcsv($fp, 1000, ',')) !== false) {
+                try {
+                    if (count($data) !== 5) {
+                        throw new InvalidFormatException('Dada de línea imválida' . implode(", ", $data));
+                    }
+                    $courses[$data[0]] = new Course($data[1], $data[2], $data[3], $data[4]);
+                } catch (InvalidFormatException $e) {
+                    echo "Error " . $e->getMessage() . "\n";
+                }
+            }
+        }
+        fclose($fp);
+        return $courses;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return "<div class='course'>
                     <h3>Cycle: {$this->getCycle()}</h3>
                     <h5>ID Family: {$this->getIdFamily()}</h5>
@@ -110,8 +124,6 @@ class Course {
     }
 }
 
-class InvalidFormatException extends Exception {
-    public function __construct($lineNumber, $message = "Formato de línea inválido en el archivo CSV.") {
-        parent::__construct("Error en la línea $lineNumber: $message");
-    }
+class InvalidFormatException extends Exception
+{
 }

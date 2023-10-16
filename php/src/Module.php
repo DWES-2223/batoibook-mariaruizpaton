@@ -93,8 +93,23 @@ class Module {
         return json_encode($mapa);
     }
 
-    public function LoadModulesFromFile(){
-
+    public static function loadModulesFromFile($filename): array
+    {
+        $modules = [];
+        if ($fp = fopen($filename, "r")) {
+            while (($data = fgetcsv($fp, 1000, ',')) !== false) {
+                try {
+                    if (count($data) !== 4) {
+                        throw new InvalidFormatException('Dada de línea imválida' . implode(", ", $data));
+                    }
+                    $modules[$data[0]] = new Module($data[0], $data[1], $data[2], $data[3]);
+                } catch (InvalidFormatException $e) {
+                    echo "Error " . $e->getMessage() . "\n";
+                }
+            }
+        }
+        fclose($fp);
+        return $modules;
     }
 
     public function __toString() {

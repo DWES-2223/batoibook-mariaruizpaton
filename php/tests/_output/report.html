@@ -210,14 +210,14 @@
  <body>
    <ul id="toolbar-filter">
      <li> <a href="#" title="Show all" onClick="showAllScenarios()">◯</a></li>
-     <li> <a href="#" title="Successful" onClick="toggleScenarios('scenarioSuccess', this.parentElement)"><strong>✔</strong> 21</a></li>
-     <li> <a href="#" title="Failed" onClick="toggleScenarios('scenarioFailed', this.parentElement)"><strong>✗</strong> 1</a></li>
+     <li> <a href="#" title="Successful" onClick="toggleScenarios('scenarioSuccess', this.parentElement)"><strong>✔</strong> 24</a></li>
+     <li> <a href="#" title="Failed" onClick="toggleScenarios('scenarioFailed', this.parentElement)"><strong>✗</strong> 0</a></li>
      <li> <a href="#" title="Skipped" onClick="toggleScenarios('scenarioSkipped', this.parentElement)"><strong>S</strong> 0</a></li>
      <li> <a href="#" title="Incomplete" onClick="toggleScenarios('scenarioIncomplete', this.parentElement)"><strong>I</strong> 0</a></li>
      <li> <a href="#" title="Useless" onClick="toggleScenarios('scenarioUseless', this.parentElement)"><strong>U</strong> 0</a></li>
    </ul>
  <div class="layout">
- <h1>Codeception Results <small><span style="color: #e74c3c">FAILED</span> (00:00.158)</small></h1>
+ <h1>Codeception Results <small><span style="color: green">OK</span> (00:00.301)</small></h1>
 
 
 
@@ -237,7 +237,7 @@
 </tr>   <tr class="scenarioRow scenarioSuccess">
     <td>
      <p class="scenarioSuccess" onclick="showHide('1', this)">
-          <span class="quiet">BookTest &raquo;</span> Creation <span style="color: #34495e; font-size: 70%;">0.01s</span></p>
+          <span class="quiet">BookTest &raquo;</span> Creation <span style="color: #34495e; font-size: 70%;">0.03s</span></p>
     </td>
    </tr>
    <tr class="scenarioRow scenarioSuccess">
@@ -476,24 +476,19 @@
    </tr>
 
 
-   <tr class="scenarioRow scenarioFailed">
+   <tr class="scenarioRow scenarioSuccess">
     <td>
-     <p class="scenarioFailed" onclick="showHide('12', this)">
+     <p class="scenarioSuccess" onclick="showHide('12', this)">
           <span class="quiet">CourseTest &raquo;</span> Load modules from file <span style="color: #34495e; font-size: 70%;">0.01s</span></p>
     </td>
    </tr>
-   <tr class="scenarioRow scenarioFailed">
+   <tr class="scenarioRow scenarioSuccess">
     <td>
-     <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer12">
+     <table border="0" width="100%" class="scenarioSuccess scenarioStepsTable" id="stepContainer12">
 
 
 
-         <tr >
-    <td class="error">
-        Non-static method Course::loadCoursesFromFile() cannot be called statically
-    </td>
-</tr>
-
+         
          
          
      </table>
@@ -503,42 +498,19 @@
    </tr>
 
 
-   <tr class="scenarioRow scenarioFailed">
+   <tr class="scenarioRow scenarioSuccess">
     <td>
-     <p class="scenarioFailed" onclick="showHide('13', this)">
+     <p class="scenarioSuccess" onclick="showHide('13', this)">
           <span class="quiet">CourseTest &raquo;</span> Invalid format exception on load <span style="color: #34495e; font-size: 70%;">0s</span></p>
     </td>
    </tr>
-   <tr class="scenarioRow scenarioFailed">
+   <tr class="scenarioRow scenarioSuccess">
     <td>
-     <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer13">
+     <table border="0" width="100%" class="scenarioSuccess scenarioStepsTable" id="stepContainer13">
 
 
 
-         <tr >
-    <td class="error">
-        Failed asserting that exception of type "Error" matches expected exception "Codeception\Exception\Warning". Message was: "Non-static method Course::loadCoursesFromFile() cannot be called statically" at<br />
-/var/www/php/tests/unit/CourseTest.php:91<br />
-/var/www/php/vendor/codeception/codeception/src/Codeception/Test/TestCaseWrapper.php:148<br />
-/var/www/php/vendor/codeception/codeception/src/Codeception/Test/Test.php:168<br />
-/var/www/php/vendor/codeception/codeception/src/Codeception/Suite.php:130<br />
-/var/www/php/vendor/codeception/codeception/src/Codeception/SuiteManager.php:148<br />
-/var/www/php/vendor/codeception/codeception/src/Codeception/Codecept.php:260<br />
-/var/www/php/vendor/codeception/codeception/src/Codeception/Codecept.php:216<br />
-/var/www/php/vendor/codeception/codeception/src/Codeception/Command/Run.php:646<br />
-/var/www/php/vendor/codeception/codeception/src/Codeception/Command/Run.php:467<br />
-/var/www/php/vendor/symfony/console/Command/Command.php:326<br />
-/var/www/php/vendor/symfony/console/Application.php:1063<br />
-/var/www/php/vendor/symfony/console/Application.php:320<br />
-/var/www/php/vendor/symfony/console/Application.php:174<br />
-/var/www/php/vendor/codeception/codeception/src/Codeception/Application.php:112<br />
-/var/www/php/vendor/codeception/codeception/app.php:45<br />
-/var/www/php/vendor/codeception/codeception/app.php:46<br />
-/var/www/php/vendor/codeception/codeception/codecept:7<br />
-.
-    </td>
-</tr>
-
+         
          
          
      </table>
@@ -658,24 +630,19 @@
    </tr>
 
 
-   <tr class="scenarioRow scenarioFailed">
+   <tr class="scenarioRow scenarioSuccess">
     <td>
-     <p class="scenarioFailed" onclick="showHide('19', this)">
+     <p class="scenarioSuccess" onclick="showHide('19', this)">
           <span class="quiet">ModuleTest &raquo;</span> Load modules from file <span style="color: #34495e; font-size: 70%;">0s</span></p>
     </td>
    </tr>
-   <tr class="scenarioRow scenarioFailed">
+   <tr class="scenarioRow scenarioSuccess">
     <td>
-     <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer19">
+     <table border="0" width="100%" class="scenarioSuccess scenarioStepsTable" id="stepContainer19">
 
 
 
-         <tr >
-    <td class="error">
-        Non-static method Module::LoadModulesFromFile() cannot be called statically
-    </td>
-</tr>
-
+         
          
          
      </table>
@@ -803,11 +770,11 @@
       <table border="0">
        <tr>
         <td width="250" class="scenarioSuccess">Successful scenarios:</td>
-        <td class="scenarioSuccessValue"><strong>21</strong></td>
+        <td class="scenarioSuccessValue"><strong>24</strong></td>
        </tr>
        <tr>
         <td class="scenarioFailed">Failed scenarios:</td>
-        <td class="scenarioFailedValue"><strong>1</strong></td>
+        <td class="scenarioFailedValue"><strong>0</strong></td>
        </tr>
        <tr>
         <td class="scenarioSkipped">Skipped scenarios:</td>
