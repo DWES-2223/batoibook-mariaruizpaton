@@ -1,5 +1,8 @@
 <?php
 
+namespace BatBook;
+use InvalidFormatException;
+
 class Course
 {
     private $cycle;
@@ -124,6 +127,3 @@ class Course
     }
 }
 
-class InvalidFormatException extends Exception
-{
-}

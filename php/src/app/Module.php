@@ -1,5 +1,5 @@
 <?php
-
+namespace BatBook;
 class Module {
     private $code;
     private $cliteral;
