@@ -1,6 +1,6 @@
 <?php
 namespace BatBook;
-use WeekPasswordException;
+use BatBook\Exempcions\WeekPasswordException;
 
 class User {
     private $email;

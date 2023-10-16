@@ -1,5 +1,5 @@
 <?php
-
+include ("../autoload.php");
 use BatBook\Book;
 
 $id = isset($_GET['id']) ? $_GET['id'] : null;
