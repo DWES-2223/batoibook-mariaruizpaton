@@ -2,7 +2,7 @@
 include ("../autoload.php");
 use BatBook\Book;
 
-$id = isset($_GET['id']) ? $_GET['id'] : null;
+$id = isset($_GET['id']) ?? null;
 $books = [
     1 => new Book(0, "0012", 'Publisher Name', 19.99, 300, 'Available', 'book.jpg', 'This is a great book')
 ];
