@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-<form action="newBook.php" method="post" enctype="multipart/form-data">
+<form action="../../newBook.php" method="post" enctype="multipart/form-data">
     <div>
         <label for="module">Mòdul:</label>
         <select id="module" name="module">
@@ -18,22 +18,22 @@
                 <option value="<?=$module?>"><?=$module->getVliteral()?></option>
            <?php }?>
         </select>
-        <span class="error"><!-- Missatge d'error per al mòdul aquí --></span>
+        <span class="error"><?=printError($errores, 'module')?></span>
     </div>
     <div>
         <label for="publisher">Editorial:</label>
         <input type="text" id="publisher" name="publisher" value="">
-        <span class="error"><!-- Missatge d'error per a l'editorial aquí --></span>
+        <span class="error"><?=printError($errores, 'publisher')?></span>
     </div>
     <div>
         <label for="price">Preu:</label>
         <input type="text" id="price" name="price" value="">
-        <span class="error"><!-- Missatge d'error per al preu aquí --></span>
+        <span class="error"><?=printError($errores, 'price')?></span>
     </div>
     <div>
         <label for="pages">Pàgines:</label>
         <input type="text" id="pages" name="pages" value="">
-        <span class="error"><!-- Missatge d'error per a les pàgines aquí --></span>
+        <span class="error"><?=printError($errores, 'pages')?></span>
     </div>
     <div>
         <label for="status">Estat:</label>
@@ -42,7 +42,7 @@
                 <option value="<?=$stat?>"><?=$stat?></option>
             <?php }?>
         </select>
-        <span class="error"><!-- Missatge d'error per a l'estat aquí --></span>
+        <span class="error"><?=printError($errores, 'status')?></span>
     </div>
     <div>
         <label for="photo">Foto:</label>
