@@ -14,8 +14,8 @@
     <div>
         <label for="module">Mòdul:</label>
         <select id="module" name="module">
-            <?php foreach ($modulos as $key => $module) { ?>
-                <option value="<?=$module?>"><?=$module->getVliteral()?></option>
+            <?php foreach ($modulos as $key => $value) { ?>
+                <option value="<?=$value->getCode()?>"><?=$value->getCliteral()?></option>
            <?php }?>
         </select>
         <span class="error"><?=printError($errores, 'module')?></span>
@@ -53,7 +53,7 @@
         <textarea id="comments" name="comments"></textarea>
     </div>
     <div>
-        <button type="submit">Donar d'alta</button>
+        <button type="submit" name="subir" value="subir">Donar d'alta</button>
     </div>
 </form>
 </body>

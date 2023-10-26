@@ -1,10 +1,11 @@
 <?php
 include 'autoload.php';
+include 'load.php';
 include './myHelpers/utils.php';
 use BatBook\Module;
 
 $modulos = [];
-$stats = ['Nuevo', 'Bueno', 'Usado', 'Malo', 'Digital'];
+$stats = ['nuevo', 'bueno', 'usado', 'malo', 'digital'];
 $errores = [];
 try {
     $modulos = Module::loadModulesFromFile("./files/modulesbook.csv");
@@ -18,6 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $preu = trim($_POST['price']);
     $pagines = trim($_POST['pages']);
     $status = $_POST['status'];
+    $nombre = '';
+    if (is_uploaded_file($_FILES['photo']['tmp_name'])) {
+            $nombre = $_FILES['photo']['name'];
+    }
     $comments = trim($_POST['comments']??'');
 
     if (!in_array($module, $modulos)){
@@ -46,13 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit();
     }
 
-    echo 'Modulo: ' . $module . '</br>';
-    echo 'Editorial: ' . $publisher . '</br>';
-    echo 'Precio: ' . $preu . '</br>';
-    echo 'Págines: ' . $pagines . '</br>';
-    echo 'Estado: ' . $status . '</br>';
-    echo 'Comentario: ' . $comments . '</br>';
+    $book =  new \BatBook\Book(10, $module, $publisher, $preu, $pagines, $status, $nombre, $comments);
+    echo $book;
+    $books[] = $book;
+    $_SESSION['books'] = serialize($books);
 
-} else {
-    include_once './views/books/new.php';
 }
+include_once './views/books/new.php';
