@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="ca">
+<?php
+if (!isset($_SESSION['usuario'])) {
+    header('Location: login.php');
+    exit();
+}
+?>
 <head>
     <meta charset="UTF-8">
     <title>Alta Llibre</title>
@@ -15,7 +21,7 @@
         <label for="module">Mòdul:</label>
         <select id="module" name="module">
             <?php foreach ($modulos as $key => $value) { ?>
-                <option value="<?=$value->getCode()?>"><?=$value->getCliteral()?></option>
+                <option value="<?=$key?>"><?=$value->getCliteral()?></option>
            <?php }?>
         </select>
         <span class="error"><?=printError($errores, 'module')?></span>

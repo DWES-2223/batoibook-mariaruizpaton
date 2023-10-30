@@ -25,9 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     $comments = trim($_POST['comments']??'');
 
-    if (!in_array($module, $modulos)){
-        $errores['module'] = 'Debe elegir un modulo válido';
-    }
     if (empty($publisher)){
         $errores['publisher'] = "Editorial es requerido";
     }
@@ -51,7 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit();
     }
 
-    $book =  new \BatBook\Book(10, $module, $publisher, $preu, $pagines, $status, $nombre, $comments);
+    $user = $_SESSION['usuario'];
+    $idUser = null;
+    foreach ($users as $key => $item){
+        if ($item->getNick() == $user){
+            $idUser = $key+1;
+        }
+    }
+    $book =  new \BatBook\Book($idUser, $module, $publisher, $preu, $pagines, $status, $nombre, $comments);
     echo $book;
     $books[] = $book;
     $_SESSION['books'] = serialize($books);
