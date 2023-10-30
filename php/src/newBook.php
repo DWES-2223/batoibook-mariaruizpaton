@@ -61,4 +61,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $_SESSION['books'] = serialize($books);
 
 }
+include_once 'header.php';
 include_once './views/books/new.php';

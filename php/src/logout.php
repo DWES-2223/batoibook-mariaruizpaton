@@ -1,4 +1,4 @@
 <?php
 include_once 'load.php';
-session_destroy();
+unset($_SESSION['usuario']);
 header('Location: index.php');
