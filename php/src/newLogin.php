@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $password = $_POST['password'];
 
     foreach ($users as $item){
+
         if ($item->getEmail() == $email && password_verify($password, $item->getPassword())){
             $_SESSION['usuario'] = $item->getNick();
             header('Location: index.php');

@@ -8,7 +8,7 @@ $modulos = [];
 $stats = ['nuevo', 'bueno', 'usado', 'malo', 'digital'];
 $errores = [];
 try {
-    $modulos = Module::loadModulesFromFile("./files/modulesbook.csv");
+    $modulos = Module::getModulesInArray();
 } catch (Exception $e){
     echo $e->getMessage();
 }
@@ -56,10 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
     }
     $book =  new \BatBook\Book($idUser, $module, $publisher, $preu, $pagines, $status, $nombre, $comments);
+    $book->save();
     echo $book;
     $books[] = $book;
     $_SESSION['books'] = serialize($books);
-
 }
 include_once 'header.php';
 include_once './views/books/new.php';

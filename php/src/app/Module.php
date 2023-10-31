@@ -1,11 +1,12 @@
 <?php
 namespace BatBook;
+use PDO;
+
 class Module {
     private $code;
     private $cliteral;
     private $vliteral;
     private $idCycle;
-
 
     /**
      * @param $code
@@ -13,13 +14,14 @@ class Module {
      * @param $vliteral
      * @param $idCycle
      */
-    public function __construct($code, $cliteral, $vliteral, $idCycle)
+    public function __construct($code='', $cliteral='', $vliteral='', $idCycle='')
     {
         $this->code = $code;
         $this->cliteral = $cliteral;
         $this->vliteral = $vliteral;
         $this->idCycle = $idCycle;
     }
+
 
     /**
      * @return mixed
@@ -110,6 +112,23 @@ class Module {
         }
         fclose($fp);
         return $modules;
+    }
+
+    public static function getModulesInArray(){
+        $array = [];
+
+        try {
+            $connection = new Connection();
+            $conexion = $connection->getConnection();
+            $sql = 'SELECT * FROM modules';
+
+            $sentencia = $conexion->prepare($sql);
+            $sentencia -> setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Module::class);
+            $sentencia -> execute();
+            return $sentencia->fetchAll();
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 
     public function __toString() {

@@ -1,6 +1,8 @@
 <?php
 
 namespace BatBook;
+use PDOException;
+
 class Book
 {
     private $idUser;
@@ -191,6 +193,31 @@ class Book
             $mapa[$clave] = $valor;
         }
         return json_encode($mapa);
+    }
+
+    public function save(){
+        try {
+            $conecction = new Connection();
+            $conexion = $conecction->getConnection();
+            $sql = 'INSERT INTO books (idUser, idModule, publisher, price, pages, status, photo, comments, soldDate) VALUES(:idUser, :idModule, :publisher, :price, :pages, :status, :photo, :comments, :soldDate)';
+
+            $sentencia = $conexion->prepare($sql);
+            $sentencia->bindParam(':idUser', $this->idUser);
+            $sentencia->bindParam(':idModule', $this->idModule);
+            $sentencia->bindParam(':publisher', $this->publisher);
+            $sentencia->bindParam(':price', $this->price);
+            $sentencia->bindParam(':pages', $this->pages);
+            $sentencia->bindParam(':status', $this->status);
+            $sentencia->bindParam(':photo', $this->photo);
+            $sentencia->bindParam(':comments', $this->comments);
+            $sentencia->bindParam(':soldDate', $this->soldDate);
+
+            $sentencia->execute();
+            $lastId = $conexion->lastInsertId();
+            echo $lastId;
+        } catch (PDOException $e){
+            echo $e->getMessage();
+        }
     }
 
     public function __toString(): string {

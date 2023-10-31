@@ -12,9 +12,9 @@ if ($id === null) {
 } else {
     try {
         if (array_key_exists($id, $books)){
-            echo json_encode($books[$id]->toJSON());
+            echo $books[$id]->toJSON();
         } else {
-            throw new NotFoundException("Id ${$id} no encontrado");
+            throw new NotFoundException("Id $id no encontrado");
         }
     } catch (NotFoundException $e){
         echo "Error " . $e->getMessage() . "\n";
