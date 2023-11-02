@@ -115,7 +115,6 @@ class Module {
     }
 
     public static function getModulesInArray(){
-        $array = [];
 
         try {
             $connection = new Connection();

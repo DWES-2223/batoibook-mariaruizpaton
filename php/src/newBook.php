@@ -49,12 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 
     $user = $_SESSION['usuario'];
-    $idUser = null;
-    foreach ($users as $key => $item){
-        if ($item->getNick() == $user){
-            $idUser = $key+1;
-        }
-    }
+    $idUser = $user->getId();
+
     $book =  new \BatBook\Book($idUser, $module, $publisher, $preu, $pagines, $status, $nombre, $comments);
     $book->save();
     echo $book;

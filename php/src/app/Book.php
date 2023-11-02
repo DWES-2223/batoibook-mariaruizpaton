@@ -220,6 +220,8 @@ class Book
         }
     }
 
+
+
     public function __toString(): string {
         return "<div class='book'>
                     <h6>Id User: {$this->idUser}</h6>

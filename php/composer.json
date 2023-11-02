@@ -19,6 +19,7 @@
         "codeception/module-asserts": "^3.0"
     },
   "require": {
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "ext-json": "*"
   }
 }

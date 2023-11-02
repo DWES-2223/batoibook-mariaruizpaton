@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         if ($item->getEmail() == $email && password_verify($password, $item->getPassword())){
             $_SESSION['usuario'] = $item->getNick();
+            \BatBook\User::login($email, $password);
             header('Location: index.php');
         } else {
             $error = 'Contraseña incorrecta';

@@ -23,6 +23,11 @@ class Connection {
         return $this->connection;
     }
 
+    public static function get() : PDO{
+        $conexion = new Connection();
+        return $conexion->getConnection();
+    }
+
     public function insert($table, $data){
 
     }

@@ -94,6 +94,28 @@ class User {
         }
         $this->password = $password;
     }
+
+    public static function login($email, $password){
+        $user = QueryBuilder::sql('users', ['email' => $email])[0];
+        if (password_verify($password, $user->getPassword())){
+            return $user;
+        }
+        return false;
+    }
+
+    public function save()
+    {
+        return QueryBuilder::insert(User::class, $this->toArray());
+    }
+
+    private function toArray(): array
+    {
+        return [
+            'email' => $this->email,
+            'password' => $this->password,
+            'nick' => $this->nick
+        ];
+    }
 }
 
 
