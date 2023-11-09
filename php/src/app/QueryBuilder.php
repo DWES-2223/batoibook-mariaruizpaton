@@ -57,10 +57,12 @@ class QueryBuilder{
     {
         $table = $class::$nameTable;
         $conn = Connection::get();
-        $sql = "SELECT * FROM $table WHERE id = :$id";
+        $sql = "SELECT * FROM $table WHERE id = :id";
         $sentence = $conn->prepare($sql);
+        $sentence->bindValue(':id', $id);
+        $sentence->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
         $sentence->execute();
-        return $sentence->fetchObject($class);
+        return $sentence->fetch();
     }
 
     // Aquesta funció serveix per a insertar una fila en una taula.
@@ -110,7 +112,9 @@ class QueryBuilder{
         $sentence = $conn->prepare($sql);
         foreach ($values as $key => $value) {
             $sentence->bindValue(":$key", $value);
+
         }
+        $sentence->bindValue(":id", $id);
         $sentence -> execute();
         return $id;
     }
@@ -118,18 +122,14 @@ class QueryBuilder{
     // Aquesta funció serveix per a eliminar una fila en una taula basant-se en el seu ID.
     public static function delete($class, $id)
     {
-
-        try {
             $table = $class::$nameTable;
             $conn = Connection::get();
-            $sql = "DELETE $table WHERE id = :id";
+            $sql = "DELETE FROM $table WHERE id = :id";
             $sentence = $conn->prepare($sql);
 
             $sentence->bindParam(':id', $id);
             $sentence->execute();
-            return true;
-        } catch (\PDOException $e){
-            echo $e->getMessage();
-        }
+            return $sentence->rowCount() > 0;
+
     }
 }

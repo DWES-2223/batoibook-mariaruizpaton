@@ -1,42 +1,24 @@
 <?php
 
 namespace BatBook;
+use PDO;
 use PDOException;
 
 class Book
 {
-    private $idUser;
-    private $idModule;
-    private $publisher;
-    private $price;
-    private $pages;
-    private $status;
-    private $photo;
-    private $comments;
-    private $soldDate;
-
-    /**
-     * @param $idUser
-     * @param $idModule
-     * @param $publisher
-     * @param $price
-     * @param $pages
-     * @param $status
-     * @param $photo
-     * @param $comments
-     * @param $soldDate
-     */
-    public function __construct($idUser, $idModule, $publisher, $price, $pages, $status, $photo, $comments)
-    {
-        $this->idUser = $idUser;
-        $this->idModule = $idModule;
-        $this->publisher = $publisher;
-        $this->price = $price;
-        $this->pages = $pages;
-        $this->status = $status;
-        $this->photo = $photo;
-        $this->comments = $comments;
-        $this->soldDate = '';
+    static $nameTable = 'books';
+    private $id;
+    public function __construct(
+        private int $idUser = 0,
+        private string $idModule = '',
+        private string $publisher ='',
+        private float $price = 0,
+        private int $pages = 0,
+        private string $status = '',
+        private string $photo = '',
+        private string $comments = '',
+        private ?string $soldDate = null
+    ) {
     }
 
     /**
@@ -50,7 +32,7 @@ class Book
     /**
      * @param mixed $idUser
      */
-    public function setIdUser($idUser): void
+    public function setIdUser(int $idUser): void
     {
         $this->idUser = $idUser;
     }
@@ -66,9 +48,25 @@ class Book
     /**
      * @param mixed $idModule
      */
-    public function setIdModule($idModule): void
+    public function setIdModule(string $idModule): void
     {
         $this->idModule = $idModule;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     /**
@@ -82,7 +80,7 @@ class Book
     /**
      * @param mixed $publisher
      */
-    public function setPublisher($publisher): void
+    public function setPublisher(string $publisher): void
     {
         $this->publisher = $publisher;
     }
@@ -98,7 +96,7 @@ class Book
     /**
      * @param mixed $price
      */
-    public function setPrice($price): void
+    public function setPrice(float $price): void
     {
         $this->price = $price;
     }
@@ -114,7 +112,7 @@ class Book
     /**
      * @param mixed $pages
      */
-    public function setPages($pages): void
+    public function setPages(int $pages): void
     {
         $this->pages = $pages;
     }
@@ -130,7 +128,7 @@ class Book
     /**
      * @param mixed $status
      */
-    public function setStatus($status): void
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }
@@ -146,7 +144,7 @@ class Book
     /**
      * @param mixed $photo
      */
-    public function setPhoto($photo): void
+    public function setPhoto(string $photo): void
     {
         $this->photo = $photo;
     }
@@ -162,15 +160,15 @@ class Book
     /**
      * @param mixed $comments
      */
-    public function setComments($comments): void
+    public function setComments(string $comments): void
     {
         $this->comments = $comments;
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getSoldDate()
+    public function getSoldDate(): ?string
     {
         return $this->soldDate;
     }
@@ -178,7 +176,7 @@ class Book
     /**
      * @param mixed $soldDate
      */
-    public function markAsSold($soldDate): void
+    public function markAsSold(string $soldDate): void
     {
         $this->soldDate = $soldDate;
         $this->status = 'sold';
@@ -196,31 +194,55 @@ class Book
     }
 
     public function save(){
-        try {
-            $conecction = new Connection();
-            $conexion = $conecction->getConnection();
-            $sql = 'INSERT INTO books (idUser, idModule, publisher, price, pages, status, photo, comments, soldDate) VALUES(:idUser, :idModule, :publisher, :price, :pages, :status, :photo, :comments, :soldDate)';
-
-            $sentencia = $conexion->prepare($sql);
-            $sentencia->bindParam(':idUser', $this->idUser);
-            $sentencia->bindParam(':idModule', $this->idModule);
-            $sentencia->bindParam(':publisher', $this->publisher);
-            $sentencia->bindParam(':price', $this->price);
-            $sentencia->bindParam(':pages', $this->pages);
-            $sentencia->bindParam(':status', $this->status);
-            $sentencia->bindParam(':photo', $this->photo);
-            $sentencia->bindParam(':comments', $this->comments);
-            $sentencia->bindParam(':soldDate', $this->soldDate);
-
-            $sentencia->execute();
-            $lastId = $conexion->lastInsertId();
-            echo $lastId;
-        } catch (PDOException $e){
-            echo $e->getMessage();
+        if ($this->id) {
+            return QueryBuilder::update(Book::class,$this->toArray(), $this->id);
+        } else {
+            $id = QueryBuilder::insert(Book::class, $this->toArray());
+            if ($id){
+                $this->id = $id;
+            }
+            return $id;
         }
     }
 
+    public function delete(): ?bool
+    {
+        return QueryBuilder::delete(Book::class, $this->id);
+    }
 
+    public function find(){
+        return QueryBuilder::find(Book::class,$this->id);
+    }
+
+    public function findIdBook(int $id) {
+        return QueryBuilder::find(Book::class,$id);
+    }
+
+
+    public function getModule(string $code) : string{
+        $modul = Module::getModulesInArray()[$code];
+        return $modul->getCliteral();
+    }
+
+    public static function findByUserId(int $idUser){
+        $values = ['idUser' => $idUser];
+        return QueryBuilder::sql(Book::class, $values);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'idUser' => $this->idUser,
+            'idModule' => $this->idModule,
+            'publisher' => $this->publisher,
+            'price' => $this->price,
+            'pages' => $this->pages,
+            'status' => $this->status,
+            'photo' => $this->photo,
+            'comments' => $this->comments,
+            'soldDate' => $this->soldDate
+        ];
+    }
 
     public function __toString(): string {
         return "<div class='book'>

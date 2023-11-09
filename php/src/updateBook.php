@@ -1,17 +1,11 @@
 <?php
 include 'load.php';
-use BatBook\Module;
 use BatBook\Book;
 
-$modulos = [];
 $errores = [];
-try {
-    $modulos = Module::getModulesInArray();
-} catch (Exception $e){
-    echo $e->getMessage();
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $idBook = intval($_POST['id']);
     $module = $_POST['module'];
     $publisher = trim($_POST['publisher']);
     $preu = trim($_POST['price']);
@@ -19,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $stat = $_POST['status'];
     $nombre = '';
     if (is_uploaded_file($_FILES['photo']['tmp_name'])) {
-            $nombre = $_FILES['photo']['name'];
+        $nombre = $_FILES['photo']['name'];
     }
     $comments = trim($_POST['comments']??'');
 
@@ -38,19 +32,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     try {
         if (count($errores)){
-            include_once 'header.php';
             throw new Exception("Hay errores");
         }
     } catch (Exception $e){
         echo $e->getMessage();
-        include './views/books/new.php';
+        include './views/books/edit.view.php';
         exit();
     }
 
     $usuario = $_SESSION['usuario'];
     $book =  new Book($usuario->getId(), $module, $publisher, $preu, $pagines, $stat, $nombre, $comments);
-    $book->save();
-    echo $book;
+    $book->setId($idBook);
+    if ($book->save()){
+        header("Location: myBooks.php");
+        exit();
+    }
 }
-include_once 'header.php';
-include_once './views/books/new.php';

@@ -16,23 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $error = 'No coincidenn las contraseñas';
             include './views/user/register.php';
         } else {
-            foreach ($users as $item){
-                if ($item->getNick() === $nick){
-                    $error = 'Nick en uso';
-                    include './views/user/register.php';
-                }
-                if ($item->getEmail() === $email){
-                    $error = 'Email en uso';
-                    include './views/user/register.php';
-                }
-            }
             $user = null;
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
             try {
                 $user = new User($email, $passwordHash, $nick);
-                $users[] = $user;
-                $_SESSION['users'] = serialize($users);
-                $_SESSION['usuario'] = $nick;
+                $userId = $user->save();
+                $_SESSION['usuario'] = $user;
                 header('Location: index.php');
             } catch (\BatBook\Exempcions\WeekPasswordException $e) {
                 echo $e->getMessage();

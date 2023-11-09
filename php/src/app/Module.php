@@ -3,6 +3,7 @@ namespace BatBook;
 use PDO;
 
 class Module {
+    public static string $nameTable = 'modules';
     private $code;
     private $cliteral;
     private $vliteral;
@@ -115,19 +116,12 @@ class Module {
     }
 
     public static function getModulesInArray(){
-
-        try {
-            $connection = new Connection();
-            $conexion = $connection->getConnection();
-            $sql = 'SELECT * FROM modules';
-
-            $sentencia = $conexion->prepare($sql);
-            $sentencia -> setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Module::class);
-            $sentencia -> execute();
-            return $sentencia->fetchAll();
-        } catch (\PDOException $e) {
-            echo $e->getMessage();
+        $array = [];
+        $moduls = QueryBuilder::sql(Module::class);
+        foreach ($moduls as $item){
+            $array[$item->getCode()] = $item;
         }
+        return $array;
     }
 
     public function __toString() {

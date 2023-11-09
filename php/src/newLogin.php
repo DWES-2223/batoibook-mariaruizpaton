@@ -1,20 +1,19 @@
 <?php
 include_once 'load.php';
+use BatBook\User;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $email = trim($_POST['email']);
     $password = $_POST['password'];
-
-    foreach ($users as $item){
-
-        if ($item->getEmail() == $email && password_verify($password, $item->getPassword())){
-            $_SESSION['usuario'] = $item->getNick();
-            \BatBook\User::login($email, $password);
-            header('Location: index.php');
-        } else {
-            $error = 'Contraseña incorrecta';
-            include './views/user/login.php';
-        }
+    $passwordHas = password_hash($password, PASSWORD_DEFAULT);
+    $user = User::login($email, $password);
+    if ($user) {
+        $_SESSION['usuario'] = $user;
+        header('Location: index.php');
+    } else {
+        echo 'Contraseña o usuario incorrecto';
+        include './views/user/login.php';
     }
+
 }
 include './views/user/login.php';

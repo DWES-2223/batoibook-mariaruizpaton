@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 <?php
 if (!isset($_SESSION['usuario'])) {
-    header('Location: login.php');
+    header('Location: index.php');
     exit();
 }
 ?>
 <head>
-    <meta charset="UTF-8">
-    <title>Alta Llibre</title>
+    <title>Editar libro</title>
     <style>
         .error {
             color: red;
@@ -16,39 +15,39 @@ if (!isset($_SESSION['usuario'])) {
     </style>
 </head>
 <body>
-<form action="newBook.php" method="post" enctype="multipart/form-data">
+<form action="updateBook.php" method="post" enctype="multipart/form-data">
+    <h1>Libro: <?= $book->getModule($book->getIdModule()) ?></h1>
+    <a href="myBooks.php">Volver a la página anterior</a>
+    <div>
+        <label for="id">Id libro:</label>
+        <input type="number" id="id" name="id" value="<?=$book->getId()?>" readonly>
+    </div>
     <div>
         <label for="module">Mòdul:</label>
         <select id="module" name="module">
-            <?php foreach ($modulos as $key => $value) { ?>
-                <option value="<?=$value->getCode()?>"><?=$value->getCliteral()?></option>
-           <?php }?>
+                <option value="<?=$book->getIdModule()?>"><?=$book->getModule($book->getIdModule())?></option>
         </select>
-        <span class="error"><?=printError($errores, 'module')?></span>
     </div>
     <div>
         <label for="publisher">Editorial:</label>
-        <input type="text" id="publisher" name="publisher" value="<?=$publisher ?? ''?>">
+        <input type="text" id="publisher" name="publisher" value="<?=$book->getPublisher()?>">
         <span class="error"><?=printError($errores, 'publisher')?></span>
     </div>
     <div>
         <label for="price">Preu:</label>
-        <input type="text" id="price" name="price" value="<?=$price ?? ''?>">
+        <input type="text" id="price" name="price" value="<?=$book->getPrice()?>">
         <span class="error"><?=printError($errores, 'price')?></span>
     </div>
     <div>
         <label for="pages">Pàgines:</label>
-        <input type="text" id="pages" name="pages" value="<?=$pages ?? ''?>">
+        <input type="text" id="pages" name="pages" value="<?=$book->getPages()?>">
         <span class="error"><?=printError($errores, 'pages')?></span>
     </div>
     <div>
         <label for="status">Estat:</label>
         <select id="status" name="status">
-            <?php foreach ($status as $key => $stat) { ?>
-                <option value="<?=$key?>"><?=$stat?></option>
-            <?php }?>
+                <option value="<?=$book->getStatus()?>"><?=$book->getStatus()?></option>
         </select>
-        <span class="error"><?=printError($errores, 'status')?></span>
     </div>
     <div>
         <label for="photo">Foto:</label>
@@ -59,9 +58,11 @@ if (!isset($_SESSION['usuario'])) {
         <textarea id="comments" name="comments"></textarea>
     </div>
     <div>
-        <button type="submit" name="subir" value="subir">Donar d'alta</button>
+        <button type="submit" name="subir" value="subir">Editar</button>
     </div>
 </form>
 </body>
 </html>
+
+
 

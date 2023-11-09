@@ -3,22 +3,41 @@ namespace BatBook;
 use BatBook\Exempcions\WeekPasswordException;
 
 class User {
-    private $email;
-    private $password;
-    private $nick;
-
+    public static $nameTable = 'users';
+    private $id;
     /**
      * @param $email
      * @param $password
      * @param $nick
      * @throws WeekPasswordException
      */
-    public function __construct($email, $password, $nick)
-    {
-        $this->email = $email;
-        $this->nick = $nick;
-        $this->setPassword($password);
+
+    public function __construct(
+        private string $email='',
+        private string $password='',
+        private string $nick=''
+    ) {
+        if ($password !== '') {
+            $this->setPassword($password);
+        }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
 
     /**
      * @return mixed
@@ -96,14 +115,14 @@ class User {
     }
 
     public static function login($email, $password){
-        $user = QueryBuilder::sql('users', ['email' => $email])[0];
+        $user = QueryBuilder::sql(User::class, ['email' => $email])[0];
         if (password_verify($password, $user->getPassword())){
             return $user;
         }
         return false;
     }
 
-    public function save()
+    public function save(): bool|string
     {
         return QueryBuilder::insert(User::class, $this->toArray());
     }

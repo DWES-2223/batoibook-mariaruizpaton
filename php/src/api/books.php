@@ -1,5 +1,5 @@
 <?php
-include ("../autoload.php");
+include_once $_SERVER['DOCUMENT_ROOT'].'/myHelpers/utils.php';
 use BatBook\Book;
 
 $id = isset($_GET['id']) ?? null;
