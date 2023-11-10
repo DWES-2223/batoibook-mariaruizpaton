@@ -9,7 +9,6 @@ if (isset($_GET['id'])){
     if ($book) {
         include './views/books/show.view.php';
     } else {
-        echo 'Libro no encontrado';
-        echo '<a href="myBooks.php">Volver a la página anterior</a>';
+        header("Location: errors/not-found.php");
     }
 }

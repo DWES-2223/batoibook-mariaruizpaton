@@ -26,3 +26,4 @@ if ($id === null) {
 class NotFoundException extends Exception {
 
 }
+

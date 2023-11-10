@@ -11,7 +11,6 @@ if (isset($_GET['id'])){
         $book->delete();
         header('Location: myBooks.php');
     } else {
-        echo 'Libro no encontrado ';
-        echo '<a href="myBooks.php">Volver a la página anterior</a>';
+        header("Location: errors/not-found.php");
     }
 }
