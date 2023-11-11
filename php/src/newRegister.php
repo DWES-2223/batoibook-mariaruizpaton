@@ -19,7 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $user = null;
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
             try {
-                $user = new User($email, $passwordHash, $nick);
+                $token = bin2hex(random_bytes(32));
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+            try {
+                $user = new User($email, $passwordHash, $nick, $token);
                 $userId = $user->save();
                 $_SESSION['usuario'] = $user;
                 header('Location: index.php');

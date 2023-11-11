@@ -1,29 +1,31 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'].'/myHelpers/utils.php';
 use BatBook\Book;
+use BatBook\QueryBuilder;
 
-$id = isset($_GET['id']) ?? null;
-$books = [
-    1 => new Book(0, "0012", 'Publisher Name', 19.99, 300, 'Available', 'book.jpg', 'This is a great book')
-];
 
-if ($id === null) {
-    throw new NotFoundException("no existe id");
-} else {
-    try {
-        if (array_key_exists($id, $books)){
-            echo $books[$id]->toJSON();
-        } else {
-            throw new NotFoundException("Id $id no encontrado");
+if (isset($_GET['id'])){
+    $id = intval($_GET['id']);
+    $books = QueryBuilder::sql(Book::class);
+    if ($id === null) {
+        throw new NotFoundException("no existe id");
+    } else {
+
+        try {
+            $book = new Book();
+            $book = $book->findIdBook($id);
+            if ($book != null){
+                echo $book->toJson();
+            } else {
+                throw new NotFoundException("Id $id no encontrado");
+            }
+        } catch (NotFoundException $e){
+            echo "Error " . $e->getMessage() . "\n";
         }
-    } catch (NotFoundException $e){
-        echo "Error " . $e->getMessage() . "\n";
     }
 }
-
 
 
 class NotFoundException extends Exception {
 
 }
-

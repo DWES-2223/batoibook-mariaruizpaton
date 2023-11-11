@@ -5,17 +5,12 @@ use BatBook\Exempcions\WeekPasswordException;
 class User {
     public static $nameTable = 'users';
     private $id;
-    /**
-     * @param $email
-     * @param $password
-     * @param $nick
-     * @throws WeekPasswordException
-     */
 
     public function __construct(
         private string $email='',
         private string $password='',
-        private string $nick=''
+        private string $nick='',
+        private string $token=''
     ) {
         if ($password !== '') {
             $this->setPassword($password);
@@ -38,6 +33,15 @@ class User {
         $this->id = $id;
     }
 
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
+    }
 
     /**
      * @return mixed
@@ -124,7 +128,7 @@ class User {
 
     public function save(): bool|string
     {
-        return QueryBuilder::insert(User::class, $this->toArray());
+        return intval(QueryBuilder::insert(User::class, $this->toArray()));
     }
 
     private function toArray(): array
@@ -132,8 +136,22 @@ class User {
         return [
             'email' => $this->email,
             'password' => $this->password,
-            'nick' => $this->nick
+            'nick' => $this->nick,
+            'token' => $this->token
         ];
+    }
+
+    public function toJSON(): string {
+        $mapa = [];
+        foreach ($this as $clave => $valor) {
+            if ($clave !== 'password') {
+                $valor = ($valor === '') ? null : $valor;
+
+                $mapa[$clave] = $valor;
+            }
+        }
+
+        return json_encode($mapa);
     }
 }
 
