@@ -146,7 +146,6 @@ class User {
         foreach ($this as $clave => $valor) {
             if ($clave !== 'password') {
                 $valor = ($valor === '') ? null : $valor;
-
                 $mapa[$clave] = $valor;
             }
         }

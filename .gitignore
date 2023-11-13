@@ -1,4 +1,4 @@
 /vendor
 /.idea
 /git tests/_output
-./php/config/database.inc.php
+/src/config/database.inc.php
