@@ -4,10 +4,31 @@ namespace BatBook;
 use PDO;
 use PDOException;
 
+/**
+ *
+ */
 class Book
 {
+    /**
+     * @var string
+     */
     static $nameTable = 'books';
+    /**
+     * @var
+     */
     private $id;
+
+    /**
+     * @param int $idUser
+     * @param string $idModule
+     * @param string $publisher
+     * @param float $price
+     * @param int $pages
+     * @param string $status
+     * @param string $photo
+     * @param string $comments
+     * @param string|null $soldDate
+     */
     public function __construct(
         private int $idUser = 0,
         private string $idModule = '',
@@ -182,6 +203,9 @@ class Book
         $this->status = 'sold';
     }
 
+    /**
+     * @return string
+     */
     public function toJSON(): string {
         $mapa = [];
         foreach ($this as $clave => $valor) {
@@ -193,42 +217,70 @@ class Book
         return json_encode($mapa);
     }
 
+    /**
+     * @return false|mixed|string
+     */
     public function save(){
+        $log = MyLog::getLogger("newBook");
         if ($this->id) {
             return QueryBuilder::update(Book::class,$this->toArray(), $this->id);
         } else {
             $id = QueryBuilder::insert(Book::class, $this->toArray());
             if ($id){
                 $this->id = $id;
+                $nick = $_SESSION['usuario']->getNick();
+                $nomModul = $this->getModule($this->idModule);
+                $log->info("Libro con id $this->id, modulo $nomModul insertado correctamente del usuario $nick");
             }
             return $id;
         }
     }
 
+    /**
+     * @return bool|null
+     */
     public function delete(): ?bool
     {
         return QueryBuilder::delete(Book::class, $this->id);
     }
 
+    /**
+     * @return mixed
+     */
     public function find(){
         return QueryBuilder::find(Book::class,$this->id);
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function findIdBook(int $id) {
         return QueryBuilder::find(Book::class,$id);
     }
 
 
+    /**
+     * @param string $code
+     * @return string
+     */
     public function getModule(string $code) : string{
         $modul = Module::getModulesInArray()[$code];
         return $modul->getCliteral();
     }
 
+    /**
+     * @param int $idUser
+     * @return array|false
+     */
     public static function findByUserId(int $idUser){
         $values = ['idUser' => $idUser];
         return QueryBuilder::sql(Book::class, $values);
     }
 
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         return [
@@ -244,6 +296,9 @@ class Book
         ];
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string {
         return "<div class='book'>
                     <h6>Id User: {$this->idUser}</h6>

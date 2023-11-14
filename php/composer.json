@@ -20,6 +20,8 @@
     },
   "require": {
     "ext-pdo": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+        "dompdf/dompdf": "^2.0",
+        "monolog/monolog": "^3.5"
   }
 }

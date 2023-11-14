@@ -1,4 +1,5 @@
 <?php
+use BatBook\User;
 include_once 'load.php';
-unset($_SESSION['usuario']);
+User::logout();
 header('Location: index.php');

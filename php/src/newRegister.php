@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
             try {
                 $user = new User($email, $passwordHash, $nick, $token);
-                $userId = $user->save();
+                $user->setId($user->save());
                 $_SESSION['usuario'] = $user;
                 header('Location: index.php');
             } catch (\BatBook\Exempcions\WeekPasswordException $e) {

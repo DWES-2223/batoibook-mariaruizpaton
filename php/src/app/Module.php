@@ -2,11 +2,29 @@
 namespace BatBook;
 use PDO;
 
+/**
+ *
+ */
 class Module {
+    /**
+     * @var string
+     */
     public static string $nameTable = 'modules';
+    /**
+     * @var mixed|string
+     */
     private $code;
+    /**
+     * @var mixed|string
+     */
     private $cliteral;
+    /**
+     * @var mixed|string
+     */
     private $vliteral;
+    /**
+     * @var mixed|string
+     */
     private $idCycle;
 
     /**
@@ -88,6 +106,9 @@ class Module {
         $this->idCycle = $idCycle;
     }
 
+    /**
+     * @return string
+     */
     public function toJSON(): string {
         $mapa = [];
         foreach ($this as $clave => $valor) {
@@ -96,6 +117,10 @@ class Module {
         return json_encode($mapa);
     }
 
+    /**
+     * @param $filename
+     * @return array
+     */
     public static function loadModulesFromFile($filename): array
     {
         $modules = [];
@@ -115,6 +140,9 @@ class Module {
         return $modules;
     }
 
+    /**
+     * @return array
+     */
     public static function getModulesInArray(){
         $array = [];
         $moduls = QueryBuilder::sql(Module::class);
@@ -124,6 +152,9 @@ class Module {
         return $array;
     }
 
+    /**
+     * @return string
+     */
     public function __toString() {
         return "<div class='Module'><p><strong>Code:</strong> {$this->getCode()}</p><p><strong>Cliteral:</strong> {$this->getCliteral()}</p><p><strong>Vliteral:</strong> {$this->getVliteral()}</p><p><strong>ID Cycle:</strong> {$this->getIdCycle()}</p></div>";
     }

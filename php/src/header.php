@@ -1,6 +1,6 @@
 <?php
 if (isset($_SESSION['usuario'])) {
-    echo 'Bienvenido, ' . $_SESSION['usuario']->getNick();
+    echo 'Bienvenido/a, ' . $_SESSION['usuario']->getNick();
     echo '<li><a href="newBook.php">Añadir Libro</a></li>';
     echo '<li><a href="myBooks.php">Mis Libros</a></li>';
     echo '<li><a href="logout.php">Logout</a></li>';

@@ -1,6 +1,9 @@
 <?php
 namespace BatBook;
 use BatBook\Exempcions\WeekPasswordException;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
 
 class User {
     public static $nameTable = 'users';
@@ -119,16 +122,34 @@ class User {
     }
 
     public static function login($email, $password){
+        $log = new Logger('MyLogger');
+        $log->pushHandler(new StreamHandler('logs/login.log'), Logger::DEBUG);
         $user = QueryBuilder::sql(User::class, ['email' => $email])[0];
         if (password_verify($password, $user->getPassword())){
+            $log->info("Login correcto usuario: $user->nick");
             return $user;
+        } else {
+            $log->warning("Login incorrecto usuario: $user->nick");
         }
         return false;
     }
 
-    public function save(): bool|string
+    public function save()
     {
-        return intval(QueryBuilder::insert(User::class, $this->toArray()));
+        $log = MyLog::getLogger("register");
+        if ($id = QueryBuilder::insert(User::class, $this->toArray())){
+            $log->info("Registro correcto usuario: $this->nick");
+            return $id;
+        }
+        return null;
+    }
+
+    public static function logout(){
+        $log = MyLog::getLogger();
+        $user = QueryBuilder::find(User::class, $_SESSION['usuario']->id);
+        $_SESSION['usuario'] = null;
+        $log->info("Logout correcto usuario: $user->nick");
+
     }
 
     private function toArray(): array

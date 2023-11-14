@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         header('Location: index.php');
     } else {
         echo 'Contraseña o usuario incorrecto';
-        include './views/user/login.php';
+        include_once './views/user/login.php';
     }
-
+} else {
+    include_once './views/user/login.php';
 }
-include './views/user/login.php';

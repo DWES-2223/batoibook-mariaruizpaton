@@ -39,6 +39,7 @@ if (isset($_SESSION['usuario'])) {
                     <a href='showBook.php?id=" . $libro->getId() . "'>Ver</a>
                     <a href='editBook.php?id=" . $libro->getId() . "'>Modificar</a>
                     <a href='deleteBook.php?id=" . $libro->getId() . "'>Eliminar</a>
+                    <a href='printBook.php?id=" . $libro->getId() . "'>Print</a>
                   </td>";
             echo "</tr>";
         }

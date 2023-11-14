@@ -3,11 +3,26 @@
 namespace BatBook;
 use BatBook\Exempcions\InvalidFormatException;
 
+/**
+ *
+ */
 class Course
 {
+    /**
+     * @var
+     */
     private $cycle;
+    /**
+     * @var
+     */
     private $idFamily;
+    /**
+     * @var
+     */
     private $vliteral;
+    /**
+     * @var
+     */
     private $cliteral;
 
     /**
@@ -88,6 +103,9 @@ class Course
         $this->cliteral = $cliteral;
     }
 
+    /**
+     * @return string
+     */
     public function toJSON(): string
     {
         $mapa = [];
@@ -97,6 +115,10 @@ class Course
         return json_encode($mapa);
     }
 
+    /**
+     * @param $filename
+     * @return array
+     */
     public static function loadCoursesFromFile($filename)
     {
         $courses = [];
@@ -116,6 +138,9 @@ class Course
         return $courses;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return "<div class='course'>
