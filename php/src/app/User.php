@@ -5,10 +5,26 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 
+/**
+ *
+ */
 class User {
+    /**
+     * @var string
+     */
     public static $nameTable = 'users';
+    /**
+     * @var
+     */
     private $id;
 
+    /**
+     * @param string $email
+     * @param string $password
+     * @param string $nick
+     * @param string $token
+     * @throws WeekPasswordException
+     */
     public function __construct(
         private string $email='',
         private string $password='',
@@ -36,11 +52,18 @@ class User {
         $this->id = $id;
     }
 
+    /**
+     * @return string
+     */
     public function getToken(): string
     {
         return $this->token;
     }
 
+    /**
+     * @param string $token
+     * @return void
+     */
     public function setToken(string $token): void
     {
         $this->token = $token;
@@ -95,6 +118,9 @@ class User {
         $this->nick = $nick;
     }
 
+    /**
+     * @return string
+     */
     public function __toString() {
         return "<div class='user'>
                     <h3>Nick: {$this->getNick()}</h3>
@@ -121,6 +147,11 @@ class User {
         $this->password = $password;
     }
 
+    /**
+     * @param $email
+     * @param $password
+     * @return false|mixed
+     */
     public static function login($email, $password){
         $log = new Logger('MyLogger');
         $log->pushHandler(new StreamHandler('logs/login.log'), Logger::DEBUG);
@@ -134,6 +165,9 @@ class User {
         return false;
     }
 
+    /**
+     * @return string|null
+     */
     public function save()
     {
         $log = MyLog::getLogger("register");
@@ -144,14 +178,20 @@ class User {
         return null;
     }
 
+    /**
+     * @return void
+     */
     public static function logout(){
-        $log = MyLog::getLogger();
+        $log = MyLog::getLogger("logout");
         $user = QueryBuilder::find(User::class, $_SESSION['usuario']->id);
         $_SESSION['usuario'] = null;
         $log->info("Logout correcto usuario: $user->nick");
 
     }
 
+    /**
+     * @return array
+     */
     private function toArray(): array
     {
         return [
@@ -162,6 +202,9 @@ class User {
         ];
     }
 
+    /**
+     * @return string
+     */
     public function toJSON(): string {
         $mapa = [];
         foreach ($this as $clave => $valor) {

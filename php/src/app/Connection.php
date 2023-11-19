@@ -7,9 +7,19 @@ use PDOException;
 
 include_once $_SERVER['DOCUMENT_ROOT'] . "/config/database.inc.php";
 
+/**
+ *
+ */
 class Connection {
 
+    /**
+     * @var PDO
+     */
     private $connection;
+
+    /**
+     *
+     */
     public function __construct() {
         try {
             $this->connection = new PDO(constDSN, constUSUARIO, constPASSWORD);
@@ -19,15 +29,26 @@ class Connection {
         }
     }
 
+    /**
+     * @return PDO
+     */
     public function getConnection(): PDO{
         return $this->connection;
     }
 
+    /**
+     * @return PDO
+     */
     public static function get() : PDO{
         $conexion = new Connection();
         return $conexion->getConnection();
     }
 
+    /**
+     * @param $table
+     * @param $data
+     * @return void
+     */
     public function insert($table, $data){
 
     }

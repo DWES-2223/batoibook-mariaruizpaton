@@ -1,10 +1,15 @@
 <?php
 
 namespace BatBook\Exempcions;
-class WeekPasswordException extends \Exception
+use Exception;
+
+class WeekPasswordException extends MyExceptions
 {
-    public function __construct($message = "La contraseña no cumple los requisitos de seguridad.")
-    {
-        parent::__construct($message);
+    public function __construct(
+        $message = "Contrasenya dèbil",
+        $code = 0,
+        $previous = null
+    ) {
+        parent::__construct($message, $code, $previous);
     }
 }

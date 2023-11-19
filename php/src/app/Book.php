@@ -191,7 +191,7 @@ class Book
      */
     public function getSoldDate(): ?string
     {
-        return $this->soldDate;
+        return ($this->soldDate) ?? 'En venta';
     }
 
     /**
@@ -300,6 +300,8 @@ class Book
      * @return string
      */
     public function __toString(): string {
+        $ruta_foto = $this->photo;
+        $soldDateText = ($this->soldDate) ?? 'En venta';
         return "<div class='book'>
                     <h6>Id User: {$this->idUser}</h6>
                     <h6>ID Module: {$this->idModule}</h6>
@@ -307,9 +309,9 @@ class Book
                     <h6>Price: {$this->price}</h6>
                     <h6>Pages: {$this->pages}</h6>
                     <h6>Status: {$this->status}</h6>
-                    <h6>Photo: {$this->photo}</h6>
+                    <h6>Photo: <img src='$ruta_foto'></h6>
                     <h6>Comments: {$this->comments}</h6>
-                    <h6>Sold Date: {$this->soldDate}</h6>
+                    <h6>Sold Date: $soldDateText</h6>
                 </div>";
     }
 }
