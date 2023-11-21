@@ -152,6 +152,7 @@ class Module {
         return $array;
     }
 
+
     /**
      * @return string
      */

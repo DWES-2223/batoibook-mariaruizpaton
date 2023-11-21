@@ -30,3 +30,7 @@
 [2023-11-19T19:10:33.377741+00:00] LogoutLogger.INFO: Logout correcto usuario: manolo [] []
 [2023-11-19T19:15:47.961169+00:00] LogoutLogger.INFO: Logout correcto usuario: maria [] []
 [2023-11-19T19:25:48.155276+00:00] LogoutLogger.INFO: Logout correcto usuario: jose [] []
+[2023-11-21T17:23:15.056087+00:00] LogoutLogger.INFO: Logout correcto usuario: maria [] []
+[2023-11-21T17:24:11.656838+00:00] LogoutLogger.INFO: Logout correcto usuario: maria [] []
+[2023-11-21T18:15:37.175385+00:00] LogoutLogger.INFO: Logout correcto usuario: paula [] []
+[2023-11-21T19:21:11.630536+00:00] LogoutLogger.INFO: Logout correcto usuario:  [] []

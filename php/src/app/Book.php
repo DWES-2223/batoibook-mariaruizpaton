@@ -200,7 +200,6 @@ class Book
     public function markAsSold(string $soldDate): void
     {
         $this->soldDate = $soldDate;
-        $this->status = 'sold';
     }
 
     /**

@@ -8,7 +8,7 @@
 <body>
 <h1>Error 404 - Libro no encontrado</h1>
 <p>Lo sentimos, el libro que estás buscando no se ha encontrado.</p>
-<a href="myBooks.php">Volver a la página anterior</a>
+<a href="index.php">Volver a la página de inicio</a>
 </body>
 </html>
 

@@ -8,6 +8,7 @@ use BatBook\Exempcions\InvalidFormatException;
  */
 class Course
 {
+    static $nameTable = 'courses';
     /**
      * @var
      */
@@ -24,6 +25,7 @@ class Course
      * @var
      */
     private $cliteral;
+    private $id;
 
     /**
      * @param $cycle
@@ -31,12 +33,28 @@ class Course
      * @param $vliteral
      * @param $cliteral
      */
-    public function __construct($cycle, $idFamily, $vliteral, $cliteral)
+    public function __construct($cycle='', $idFamily=0, $vliteral='', $cliteral='')
     {
         $this->cycle = $cycle;
         $this->idFamily = $idFamily;
         $this->vliteral = $vliteral;
         $this->cliteral = $cliteral;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
     /**
@@ -103,6 +121,11 @@ class Course
         $this->cliteral = $cliteral;
     }
 
+    public function getFamilyString($id){
+        $family = Family::getFamilies()[intval($id)];
+        return $family->getCliteral();
+    }
+
     /**
      * @return string
      */
@@ -136,6 +159,31 @@ class Course
         }
         fclose($fp);
         return $courses;
+    }
+
+    public static function find(){
+        return QueryBuilder::sql(Course::class);
+    }
+
+    public function findById($id){
+        return QueryBuilder::find(Course::class, $id);
+    }
+
+    public function update (){
+        return QueryBuilder::update(Course::class,$this->toArray(), $this->id);
+    }
+
+    public function toArray(){
+        return [
+            'cycle' => $this->cycle,
+            'idFamily' => $this->idFamily,
+            'vliteral' => $this->vliteral,
+            'cliteral' => $this->cliteral
+        ];
+    }
+
+    public function delete(){
+        return QueryBuilder::delete(Course::class, $this->id);
     }
 
     /**

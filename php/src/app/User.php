@@ -17,6 +17,7 @@ class User {
      * @var
      */
     private $id;
+    public $admin;
 
     /**
      * @param string $email
@@ -35,6 +36,23 @@ class User {
             $this->setPassword($password);
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     * @param mixed $admin
+     */
+    public function setAdmin($admin): void
+    {
+        $this->admin = $admin;
+    }
+
 
     /**
      * @return mixed

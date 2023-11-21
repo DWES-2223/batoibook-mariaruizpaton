@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario'])) {
 </head>
 <body>
 <form action="showBook.php" method="get">
-    <h1>Libro: <?= $book->getModule($book->getIdModule()) ?></h1>
+    <h1>Libro: <?= $course->getModule($course->getIdModule()) ?></h1>
     <a href="myBooks.php">Volver a la página anterior</a>
     <table>
         <tr>
@@ -26,15 +26,15 @@ if (!isset($_SESSION['usuario'])) {
             <th>Fecha venta</th>
         </tr>
         <tr>
-            <td> <?= $book->getId() ?></td>
+            <td> <?= $course->getId() ?></td>
             <td> <?= $_SESSION['usuario']->getNick() ?></td>
-            <td> <?= $book->getIdModule() ?></td>
-            <td> <?= $book->getPublisher() ?></td>
-            <td> <?= $book->getPrice() ?> €</td>
-            <td> <?= $book->getPages() ?></td>
-            <td> <?= $book->getStatus() ?></td>
-            <td> <?= $book->getComments() ?></td>
-            <td> <?= $book->getSoldDate() ?? 'En venta' ?></td>
+            <td> <?= $course->getIdModule() ?></td>
+            <td> <?= $course->getPublisher() ?></td>
+            <td> <?= $course->getPrice() ?> €</td>
+            <td> <?= $course->getPages() ?></td>
+            <td> <?= $course->getStatus() ?></td>
+            <td> <?= $course->getComments() ?></td>
+            <td> <?= $course->getSoldDate() ?? 'En venta' ?></td>
         </tr>
     </table>
 </form>

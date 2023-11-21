@@ -45,3 +45,8 @@
 [2023-11-19T19:10:38.478506+00:00] MyLogger.INFO: Login correcto usuario: maria [] []
 [2023-11-21T10:52:18.705719+00:00] MyLogger.INFO: Login correcto usuario: maria [] []
 [2023-11-21T10:52:26.056306+00:00] MyLogger.INFO: Login correcto usuario: maria [] []
+[2023-11-21T16:26:10.472104+00:00] MyLogger.INFO: Login correcto usuario: maria [] []
+[2023-11-21T16:26:18.326084+00:00] MyLogger.INFO: Login correcto usuario: maria [] []
+[2023-11-21T17:23:21.138484+00:00] MyLogger.INFO: Login correcto usuario: maria [] []
+[2023-11-21T17:24:22.858057+00:00] MyLogger.INFO: Login correcto usuario: paula [] []
+[2023-11-21T17:24:30.930608+00:00] MyLogger.INFO: Login correcto usuario: paula [] []

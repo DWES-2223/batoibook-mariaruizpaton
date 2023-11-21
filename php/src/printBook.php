@@ -5,13 +5,13 @@ include 'load.php';
 use BatBook\Book;
 use Dompdf\Dompdf;
 
-$book = new Book();
+$course = new Book();
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $book = $book->findIdBook($id);
-    if ($book) {
+    $course = $course->findIdBook($id);
+    if ($course) {
         $pdf = new Dompdf();
-        $pdf->loadHtml($book);
+        $pdf->loadHtml($course);
         $pdf->setPaper('A4', "landscape");
         $pdf->render();
         $pdf->stream();
