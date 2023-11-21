@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $user = User::login($email, $password);
     if ($user) {
         $_SESSION['usuario'] = $user;
+        $_SESSION['visita' . $_SESSION['usuario']]++;
         header('Location: index.php');
     } else {
         echo 'Contraseña o usuario incorrecto';

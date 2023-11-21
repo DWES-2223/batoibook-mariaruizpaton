@@ -5,7 +5,7 @@ use BatBook\Book;
 use Dompdf\Dompdf;
 
 if (isset($_POST['generate_pdf'])) {
-    if (isset($_SESSION['usuario'])) {
+    if (isset($_SESSION['usuario']) && isAdmin($_SESSION['usuario']->getId())) {
         $books = Book::findByUserId($_SESSION['usuario']->getId());
 
         $dompdf = new Dompdf();

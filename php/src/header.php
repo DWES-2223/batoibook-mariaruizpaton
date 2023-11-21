@@ -8,5 +8,3 @@ if (isset($_SESSION['usuario'])) {
     echo '<li><a href="newLogin.php">Login</a></li>';
     echo '<li><a href="newRegister.php">Register</a></li>';
 }
-
-

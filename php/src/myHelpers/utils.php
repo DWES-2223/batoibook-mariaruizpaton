@@ -1,4 +1,8 @@
 <?php
+
+use BatBook\QueryBuilder;
+use BatBook\User;
+
 function printError($error, $field) : string {
     if (isset($error[$field])) {
         return '<span class="error">' . $error[$field] . '</span>';
@@ -13,4 +17,9 @@ function loadView($view, $data = [])
     include_once $_SERVER['DOCUMENT_ROOT']."view/$view.php";
     $html = ob_get_clean();
     return $html;
+}
+
+function isAdmin($userId){
+    $usuari = QueryBuilder::find(User::class, $userId);
+    return $usuari?$usuari->admin:false;
 }
